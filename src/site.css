@@ -1,0 +1,59 @@
+/* 网站版面（新画的）。token 和 app 一致（ui/tokens.css），这里只管横屏的排布。
+   规格 §5：只做深色；2.5px 描边、4px 圆角、实心偏移影、排线；不用模糊、发光、渐变。
+   tokens.css 的全局 reset（* 清 margin/padding，button 无边无底）也作用到整站，所以这里的间距都自己给。 */
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { overflow-x: hidden; }
+.site { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 720px) { .site { padding: 0 24px; } }
+section { padding: 96px 0; border-bottom: 1.5px solid var(--ink-line); }
+section:last-of-type { border-bottom: none; }
+.eyebrow { font-family: var(--mono); font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+h1, h2 { font-weight: 700; letter-spacing: -0.01em; line-height: 1.1; }
+h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; }
+.lede { font-size: 18px; line-height: 1.6; color: var(--ink-85); max-width: 640px; }
+/* 键盘焦点：tokens.css 的 .field 关掉了 outline，整站没有 :focus-visible，这里补一条站级的 */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.field:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
+
+/* Hero：画面位置先空着（规格 §3.1），只有排线底 */
+.hero { text-align: center; padding-top: 48px; }
+.hero-art { height: clamp(160px, 28vw, 300px); background: var(--hatch); opacity: 0.5; border-bottom: var(--stroke) solid var(--ink); margin-bottom: 48px; }
+.hero h1 { font-size: clamp(38px, 7vw, 76px); margin: 0 auto 28px; max-width: 14ch; }
+.hero .lede { margin: 0 auto; }
+.hero .lede p + p { margin-top: 6px; }
+.hero .cta { display: inline-block; margin-top: 40px; padding: 14px 28px; font-size: 17px; text-decoration: none; box-shadow: var(--shadow); }
+
+/* Quick start：OpenClaw 的格式，一句引子 + 一个给 agent 的块 + 复制（2026-10-17 晚：不再分 agent） */
+.qs-block { position: relative; margin-top: 24px; }
+.qs-block pre { font-family: var(--mono); font-size: 13px; line-height: 1.6; white-space: pre-wrap; word-break: normal; overflow-wrap: anywhere; border: var(--stroke) solid var(--ink); border-radius: var(--radius); background: var(--panel); box-shadow: var(--shadow); padding: 16px 90px 16px 16px; user-select: text; -webkit-user-select: text; }
+.qs-block .btn-op { position: absolute; top: 10px; right: 10px; }
+@media (max-width: 560px) { .qs-block pre { padding: 56px 16px 16px; } }
+
+/* One day：左旁白右演示；手机宽度上下排 */
+.oneday { display: grid; gap: 40px; align-items: start; }
+@media (min-width: 880px) { .oneday { grid-template-columns: 1fr 400px; gap: 64px; } }
+.steps { display: flex; flex-direction: column; gap: 28px; margin-top: 8px; }
+.step h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+.step p { font-size: 16px; line-height: 1.6; color: var(--ink-85); }
+
+/* 演示画布：app 的页面是 360 × 587.5（640 减去底部 52.5 的 tab 栏），场景 640 高的 viewBox 在里面按 0.918 底对齐——这里原样保留这个几何，取整 588。
+   缩放契约（ScaledFrame 照此实现）：ResizeObserver 量 .frame-slot 的宽 w；scale = min(1, (w − 5) / 360)，5 是 .frame-wrap 左右两条 2.5px 边；
+   .frame-wrap 内联 width: 360·scale / height: 588·scale；.frame 上 transform: scale(scale)。边框画在不缩放的 .frame-wrap 上，
+   content-box 免得 tokens.css 的 * { box-sizing: border-box } 让边框吃掉内容。 */
+.frame-slot { width: 100%; max-width: 365px; min-width: 0; margin: 0 auto; } /* grid 子项默认 min-width:auto，会被 360 的画框撑住 */
+.frame-wrap { box-sizing: content-box; margin: 0 auto; border: var(--stroke) solid var(--ink); border-radius: 6px; overflow: hidden; background: var(--bg); box-shadow: 6px 6px 0 var(--accent-2); }
+.frame { width: 360px; height: 588px; transform-origin: top left; position: relative; }
+.frame .page { width: 360px; height: 588px; }
+
+/* Ecospheres：三个静态生态球 */
+.spheres { display: grid; gap: 24px; margin-top: 32px; }
+@media (min-width: 720px) { .spheres { grid-template-columns: repeat(3, 1fr); } }
+.sphere { text-align: center; width: 100%; max-width: 360px; margin: 0 auto; }
+.sphere svg { display: block; width: 100%; height: auto; }
+.sphere .name { margin-top: 10px; font-size: 14px; letter-spacing: 0.1em; color: var(--ink-muted); }
+
+/* 页脚一行 */
+.site-foot { max-width: 1040px; margin: 0 auto; padding: 32px 16px 48px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; }
+@media (min-width: 720px) { .site-foot { padding-left: 24px; padding-right: 24px; } }
+.site-foot a { color: var(--ink-muted); text-decoration: none; border-bottom: 1px solid var(--ink-line); }
