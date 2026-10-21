@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <!-- Moonseed favicon（2026-10-21，方案 2a）：和 app 图标同一张，去掉 macOS 的留白，圆角方铺满。 -->
+  <rect width="256" height="256" rx="58" fill="#e0a04f" />
+  <path d="M128 44 C96 88 76 114 76 152 a52 52 0 0 0 104 0 c0 -38 -20 -64 -52 -108z" fill="#0f1a17" />
+  <path d="M128 62 v60" stroke="#e0a04f" stroke-width="7" stroke-linecap="round" />
+</svg>
