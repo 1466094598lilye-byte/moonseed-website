@@ -116,3 +116,44 @@ export function Seed({ x, y, scale = 1, onClick }: MarkerProps) {
 export function Crystal({ x, y, scale = 1, onClick }: MarkerProps) {
   return <UseSymbol id="sX" x={x} y={y} scale={scale} onClick={onClick} />;
 }
+
+// ---- 网站补的一段（2026-10-21）：实验作物的静态画法 ----
+// 升华那天长出来的杂交株：砧木 = 某物种的抽条体，接穗 = 另一物种的发芽体换成指定色，接口处一道绑痕。
+// app 里砧木、接穗、颜色、镜像都从遗物 id 派生（core 的 hybridOf）；网站上直接给定。接穗符号在 HybridDefs.tsx（s{N}a-cc）。
+// 15 个抽条体的茎尖（符号坐标，app 样张页里栅格化量出来的）：接穗接在这里。
+const STEM_TIP: Record<number, { x: number; y: number }> = {
+  1: { x: 3.7, y: -70 }, 2: { x: 1.8, y: -55.5 }, 3: { x: -0.3, y: -52.5 }, 4: { x: -0.3, y: -62 },
+  5: { x: 1.8, y: -48 }, 6: { x: 0.8, y: -49 }, 7: { x: 8.8, y: -63 }, 8: { x: 9.7, y: -69 },
+  9: { x: -0.2, y: -60.5 }, 10: { x: -0.3, y: -52 }, 11: { x: 11.8, y: -61.5 }, 12: { x: -0.3, y: -62.5 },
+  13: { x: -2.3, y: -48.5 }, 14: { x: 1.8, y: -54 }, 15: { x: -0.3, y: -50.5 },
+};
+
+export interface HybridPlantProps {
+  /** 砧木物种，1-based */
+  rootstock: number;
+  /** 接穗物种，1-based */
+  scion: number;
+  /** 接穗的颜色（app 里是随机色） */
+  color: string;
+  mirror?: boolean;
+  x: number;
+  y: number;
+  scale?: number;
+}
+
+export function HybridPlant({ rootstock, scion, color, mirror = false, x, y, scale = 1 }: HybridPlantProps) {
+  const tip = STEM_TIP[rootstock];
+  const sc = 0.95;
+  return (
+    <g transform={`translate(${x} ${y}) scale(${scale})`}>
+      <use href={`#${plantSymbolId(rootstock, 'b')}`} />
+      <g transform={`translate(${tip.x} ${tip.y + 2}) scale(${mirror ? -sc : sc} ${sc})`} color={color}>
+        <use href={`#s${scion}a-cc`} />
+      </g>
+      <g stroke="#e8dfc8" strokeWidth="1.6" strokeLinecap="round" fill="none">
+        <path d={`M${tip.x - 5} ${tip.y + 2} h10`} />
+        <path d={`M${tip.x - 3} ${tip.y + 5} h6 M${tip.x - 3} ${tip.y + 8} h6`} />
+      </g>
+    </g>
+  );
+}

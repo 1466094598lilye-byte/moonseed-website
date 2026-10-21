@@ -30,12 +30,17 @@ h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; }
 .qs-block .btn-op { position: absolute; top: 10px; right: 10px; }
 @media (max-width: 560px) { .qs-block pre { padding: 56px 16px 16px; } }
 
-/* One day：左旁白右演示；手机宽度上下排 */
-.oneday { display: grid; gap: 40px; align-items: start; }
-@media (min-width: 880px) { .oneday { grid-template-columns: 1fr 400px; gap: 64px; } }
-.steps { display: flex; flex-direction: column; gap: 28px; margin-top: 8px; }
+/* One day（2026-10-21 改成 Forest 式）：居中标题 → 一行三圆（720 以下竖排）→ Try it 大按钮 → 演示框居中 */
+#one-day h2 { text-align: center; margin-bottom: 48px; text-wrap: balance; }
+.steps { display: grid; gap: 36px 24px; max-width: 960px; margin: 0 auto; }
+@media (min-width: 720px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+.step { text-align: center; min-width: 0; }
+.art { width: min(220px, 72%); aspect-ratio: 1; max-width: 100%; margin: 0 auto 20px; border: var(--stroke) solid var(--ink); border-radius: 50%; background: var(--panel); box-shadow: var(--shadow); overflow: hidden; }
+.art svg { display: block; width: 100%; height: 100%; }
 .step h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-.step p { font-size: 16px; line-height: 1.6; color: var(--ink-85); }
+.step p { font-size: 16px; line-height: 1.6; color: var(--ink-85); margin: 0 auto; max-width: 30ch; }
+.cta-row { text-align: center; margin: 80px 0 28px; }
+.try { display: inline-block; padding: 14px 28px; font-size: 17px; box-shadow: var(--shadow); }
 
 /* 演示画布：app 的页面是 360 × 587.5（640 减去底部 52.5 的 tab 栏），场景 640 高的 viewBox 在里面按 0.918 底对齐——这里原样保留这个几何，取整 588。
    缩放契约（ScaledFrame 照此实现）：ResizeObserver 量 .frame-slot 的宽 w；scale = min(1, (w − 5) / 360)，5 是 .frame-wrap 左右两条 2.5px 边；

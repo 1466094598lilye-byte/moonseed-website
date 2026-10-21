@@ -37,6 +37,8 @@ export const ONE_DAY = {
     { title: 'Witness the bloom', text: 'Select the progress: a sprout, a shoot, or full bloom. Your call.' },
     { title: 'Dig up a relic', text: 'Every wrap up turns up one small surprise.' },
   ],
+  // 2026-10-21：三圆下面、演示框上面那颗和 Get started 同款的按钮
+  tryIt: 'Try it',
 }
 
 export const ECOSPHERES = {
@@ -58,6 +60,29 @@ export const DEMO = {
   cancel: 'Cancel',
   confirm: 'Confirm',
   take: 'Take it',
+  // 仓内景的作业开关与收工后那一页（app 的 Sow.tsx 状态 B / C）
+  workStart: 'Begin operation',
+  workPause: 'Pause operation',
+  workResume: 'Resume operation',
+  tookRoot: 'Today took root.',
+  log: 'Operation log',
+  // 演示专用：app 里这个位置是 "Visit the forest →"，网站上没有森林可去，改成回到开头
+  startOver: 'Start over',
+}
+
+// 作业记录页（app 的 OpLog.tsx）的词
+export const LOG = {
+  title: 'Operation log',
+  today: 'Today',
+  none: 'Nothing sown',
+  running: 'Running',
+  nextDay: 'next day',
+  now: 'Now',
+  recap: 'Operation recap',
+  recapHint: 'Made every 14 recorded days · {n} to go',
+  weekdays: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+  weekdaysShort: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+  months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 }
 
 export const FOOTER = {

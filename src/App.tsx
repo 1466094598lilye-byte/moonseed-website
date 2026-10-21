@@ -1,5 +1,6 @@
 import { SvgDefs } from './ui/SvgDefs.tsx'
 import { ExtraDefs } from './ui/ExtraDefs.tsx'
+import { HybridDefs } from './ui/HybridDefs.tsx'
 import { Hero } from './sections/Hero.tsx'
 import { QuickStart } from './sections/QuickStart.tsx'
 import { OneDay } from './sections/OneDay.tsx'
@@ -12,6 +13,7 @@ export function App() {
     <>
       <SvgDefs />
       <ExtraDefs />
+      <HybridDefs />
       <main className="site">
         <Hero />
         <QuickStart />
