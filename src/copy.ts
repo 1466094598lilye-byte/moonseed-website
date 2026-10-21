@@ -5,6 +5,8 @@ export const HERO = {
   line1: 'Plant ONE goal in the morning, witness the bloom when wrap up.',
   line2: 'Plugs straight into Claude Code, Codex, or any AI agent you already use.',
   cta: 'Get started',
+  // hero 遗物卡角上那颗回到土丘的重播键的无障碍名
+  replay: 'Replay',
 }
 
 export const QUICK_START = {

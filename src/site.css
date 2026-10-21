@@ -16,13 +16,44 @@ h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .field:focus-visible { outline: 2px solid var(--accent); outline-offset: 0; }
 
-/* Hero：画面位置先空着（规格 §3.1），只有排线底 */
-.hero { text-align: center; padding-top: 48px; }
-.hero-art { height: clamp(160px, 28vw, 300px); background: var(--hatch); opacity: 0.5; border-bottom: var(--stroke) solid var(--ink); margin-bottom: 48px; }
-.hero h1 { font-size: clamp(38px, 7vw, 76px); margin: 0 auto 28px; max-width: 14ch; }
-.hero .lede { margin: 0 auto; }
+/* Hero（2026-10-21 定稿）：左文右画，880 以下文字在上画在下。画是收工之后那段揭示，无边框，播一次停在终帧 */
+.hero { display: grid; gap: 40px; align-items: center; padding-top: 48px; }
+@media (min-width: 880px) { .hero { grid-template-columns: 1fr 440px; gap: 56px; } }
+.hero h1 { font-size: clamp(38px, 6vw, 68px); margin: 0 0 28px; max-width: 14ch; text-wrap: balance; }
 .hero .lede p + p { margin-top: 6px; }
 .hero .cta { display: inline-block; margin-top: 40px; padding: 14px 28px; font-size: 17px; text-decoration: none; box-shadow: var(--shadow); }
+/* 画：复用 tokens.css 的 .reveal 动画规则，但去掉它在 app 里的绝对定位和底色 */
+/* 右边的画：土丘 → 按 Wrap up ! → 揭示。.reveal 在 tokens.css 里是铺满 app 页面的绝对层，这里改回文档流、去底色 */
+.hero-stage { width: 100%; max-width: 440px; margin: 0 auto; min-width: 0; }
+.hero-reveal { position: relative; inset: auto; background: transparent; z-index: auto; display: block; }
+.hero-reveal svg { display: block; width: 100%; height: auto; }
+/* idle（aim / press 两段画面上也是它）：土丘盖着、苗没长、坑没开——三个部件各停在揭示的第 0 帧，不跑动画；按下 Wrap up 切到 grow 才开始 */
+.reveal.hero-reveal[data-rphase='idle'] .rv-mound { animation: none; }
+.reveal.hero-reveal[data-rphase='idle'] .rv-plant { animation: none; transform: scale(0); }
+.reveal.hero-reveal[data-rphase='idle'] .rv-pit { opacity: 0; }
+/* 画下面那一格：先是 Wrap up ! 按钮，播完在同一个位置换成遗物卡；高度固定住，换的时候页面不跳 */
+.hero-foot { min-height: 160px; margin-top: 16px; display: flex; justify-content: center; align-items: flex-start; }
+.hero-press { position: relative; }
+.hero-wrap { padding: 14px 28px; font-size: 17px; box-shadow: var(--shadow); transition: transform 0.08s, box-shadow 0.08s; }
+/* 自动按下去：和 .btn:active 一个意思，再多沉一点、影子跟着收 */
+.hero-wrap.down { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--accent-2); }
+/* 光标：aim 时从右下滑到按钮上，press 时跟着按钮沉 */
+.hero-pointer { position: absolute; left: 58%; top: 50%; width: 22px; height: auto; pointer-events: none; filter: drop-shadow(1px 1px 0 rgba(0, 0, 0, 0.45)); }
+.hero-pointer.aim { animation: aim 0.45s ease-out both; }
+.hero-pointer.press { animation: tap 0.2s ease-out both; }
+@keyframes aim { from { opacity: 0; transform: translate(30px, 32px); } to { opacity: 1; transform: translate(0, 0); } }
+@keyframes tap { from { transform: translate(0, 0); } to { transform: translate(3px, 3px); } }
+.hero-card { width: 100%; max-width: 320px; padding: 12px 14px; }
+.hero-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.hero-card-text { font-size: 15px; line-height: 1.6; color: var(--ink-85); margin-top: 6px; }
+.hero-card-foot { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; font-size: 12px; letter-spacing: .1em; color: var(--ink-muted); }
+.hero-replay { flex: none; width: 28px; height: 28px; border: 2px solid var(--ink-line); border-radius: var(--radius); background: var(--panel); color: var(--ink-muted); font-size: 16px; line-height: 1; }
+.hero-replay:hover { border-color: var(--ink); color: var(--ink); }
+/* 减少动态：tokens.css 的 reduce 块把土丘压平、立方体直接摆在升起的位置（那是给 app 里揭示终态用的）；idle 还得是埋着种子的土丘 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal.hero-reveal[data-rphase='idle'] .rv-mound { transform: scaleY(1); }
+  .reveal.hero-reveal[data-rphase='idle'] .rv-cube { opacity: 0; }
+}
 
 /* Quick start：OpenClaw 的格式，一句引子 + 一个给 agent 的块 + 复制（2026-10-17 晚：不再分 agent） */
 .qs-block { position: relative; margin-top: 24px; }
