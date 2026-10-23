@@ -72,6 +72,8 @@ h2 { font-size: clamp(28px, 4vw, 40px); margin-bottom: 20px; }
 .step p { font-size: 16px; line-height: 1.6; color: var(--ink-85); margin: 0 auto; max-width: 30ch; }
 .cta-row { text-align: center; margin: 80px 0 28px; }
 .try { display: inline-block; padding: 14px 28px; font-size: 17px; box-shadow: var(--shadow); }
+/* 演示框下面的 Start over（种下后才出现）：同款，和框拉开一点 */
+.restart-row { text-align: center; margin: 24px 0 0; }
 
 /* 演示画布：app 的页面是 360 × 587.5（640 减去底部 52.5 的 tab 栏），场景 640 高的 viewBox 在里面按 0.918 底对齐——这里原样保留这个几何，取整 588。
    缩放契约（ScaledFrame 照此实现）：ResizeObserver 量 .frame-slot 的宽 w；scale = min(1, (w − 5) / 360)，5 是 .frame-wrap 左右两条 2.5px 边；

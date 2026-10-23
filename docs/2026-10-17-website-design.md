@@ -107,7 +107,7 @@ OpenClaw 的格式：左侧 eyebrow，tab 行，代码块，复制按钮。宽�
 3. **仓内景（2026-10-20 扩）。** 照 app 的状态 B：页头下一行 mono 正计时（只在作业中显示），页脚两层——上层 `Pause / Resume operation` 开关，下层 `Wrap up !`。种下那一刻作业就开始（app 在播种那一批写 `work.started`），所以进仓时计时已经在走、光球是琥珀 6 秒呼吸；按 Pause 转青色慢呼吸，Resume 再亮。`Begin operation` 只在 app 里 MCP 种的种子上出现，演示里不会见到。作业段只在内存里。按 `Wrap up !` 出现 app 的 `StatePicker`：标题 `How far did it grow today?`，三档。网站这份的第三档标签用 `Bloom`（app 里是 Full），和 §2.3 的文案一致；前两档 `Sprout` / `Shoot` 不变。确认前若作业还开着，先收口（app 也是）。
 4. **长出。** 选哪档就长成哪档：植物从土丘里长出、土丘沉平。物种固定一个（选一个完全体最好看的，实现时定，写在代码常量里）。
 5. **揭示。** 旁边开坑、土块飞起、小立方体升起打开、遗物升出带火花、推卡片——app 里那段 3.3 秒，照搬。卡片上是 §4.2 写死的旧货。卡片的按钮 `Take it`，按下去进第 6 步。
-6. **今天结束了（2026-10-20 加）。** 照 app 的状态 C：植物以选定的体量长在地里，种子句、`Today took root.`、按钮 `Operation log`。页脚是演示专用的 `Start over`（app 里这个位置是 `Visit the forest →`，网站没有森林可去），按下去回到第 1 步，输入框里仍是预填那句，作业段清空。
+6. **今天结束了（2026-10-20 加）。** 照 app 的状态 C：植物以选定的体量长在地里，种子句、`Today took root.`、按钮 `Operation log`。页脚空着（app 里这个位置是 `Visit the forest →`，网站没有森林可去；原来放过一颗灰色的 `Start over`，2026-10-23 删了）。回到第 1 步靠框外的按钮：种下之后，演示框**外面**正下方出现一颗和 Try it 同款的 `Start over`，点了把演示整个重挂回第 1 步，输入框里仍是预填那句，作业段清空。放框外是因为访客走到记录页只有左上角的 `‹` 能出去，会困惑；放进记录页里又挤，博士否了。
 7. **作业记录（2026-10-20 加）。** 照 app 的 `OpLog`：七个日期 chip（今天和之前六天）、一页一天、竖轴早 6 到次日 6。只有今天有数据——访客刚才点出来的那几段，暂停的空隙也在；其他六天就是 app 里本来的空页 `Nothing sown`。**不预埋任何数据。** 底部「Operation recap」按 app 的规矩灰着，提示 `Made every 14 recorded days · n to go`。和 app 的一处不同：不足一分钟的段时长写秒（app 取整成 0 min；演示里的段几乎都不到一分钟）。Esc 关闭。
 
 不做：升华（"Today didn't go as expected" 那条入口不出现）、意外收获、教程、第二颗种子的锁、作业总结卡、熄屏自动暂停。演示不存任何东西，刷新即复位。
@@ -165,7 +165,7 @@ OpenClaw 的格式：左侧 eyebrow，tab 行，代码块，复制按钮。宽�
 
 1. 第一屏是 §2.1 的三行字和一个按钮，按钮点下去滚到 Quick start。
 2. Quick start 一个块（2026-10-17 晚改，不分 agent），和 Moonseed-releases 的 README 里那段一致，复制按钮能用。
-3. One day：左边三段旁白；右边输入框里预填 `Chapter five of the novel.`。按 Plant 看到种子落下、进穹顶，计时已经在走、光球琥珀；按 Pause operation 回青、计时行隐去，Resume 再走；按 Wrap up 选 Shoot，看到植物长成抽条的体量；接着看到立方体打开、🔦 的卡片；按 Take it 到「Today took root.」页，按 Operation log 看到七天的记录、今天那页画着刚才的段、其他天 Nothing sown、总结按钮灰着；Esc 关掉；按 Start over 回到输入框。选 Sprout 和 Bloom 各走一次，体量不同。
+3. One day：左边三段旁白；右边输入框里预填 `Chapter five of the novel.`。按 Plant 看到种子落下、进穹顶，计时已经在走、光球琥珀；按 Pause operation 回青、计时行隐去，Resume 再走；按 Wrap up 选 Shoot，看到植物长成抽条的体量；接着看到立方体打开、🔦 的卡片；按 Take it 到「Today took root.」页，按 Operation log 看到七天的记录、今天那页画着刚才的段、其他天 Nothing sown、总结按钮灰着；Esc 关掉；按框下面的 Start over 回到输入框，按钮随之消失。选 Sprout 和 Bloom 各走一次，体量不同。
 4. 最后一屏三个生态球并排，下面是 the novel / the thesis / the side app，上面那一句话。
 5. 把窗口缩到手机宽度，四屏都能看，没有横向滚动。
 6. `git status` 里 `apps/desktop` 和 `packages` 干净。

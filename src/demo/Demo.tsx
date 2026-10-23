@@ -18,7 +18,8 @@ interface WorkSeg { start: number; end: number | null }
 const openSeg = (w: WorkSeg[]) => w.length > 0 && w[w.length - 1].end === null
 const stopWork = (w: WorkSeg[], at = Date.now()): WorkSeg[] => (openSeg(w) ? [...w.slice(0, -1), { ...w[w.length - 1], end: at }] : w)
 
-export function Demo() {
+// onPlanted：种下时告诉外面（One day 用它显示框下面那颗 Start over；回到起点是外面换 key 重挂，这里没有 reset）。
+export function Demo({ onPlanted }: { onPlanted?: () => void } = {}) {
   const [phase, setPhase] = useState<Phase>('a')
   const [text, setText] = useState(DEMO.prefill)
   const [seedText, setSeedText] = useState('')
@@ -79,6 +80,7 @@ export function Demo() {
     setNow(t)
     setWork([{ start: t, end: null }])
     setPhase('falling')
+    onPlanted?.()
   }
   const toggleWork = () => {
     // 同一时刻同时更新 now 和段，开始的那一帧 readout 才不会先用旧 now 算出负数
@@ -95,15 +97,6 @@ export function Demo() {
   const take = () => {
     setClosed(reveal)
     setReveal(null)
-  }
-  const reset = () => {
-    setClosed(null)
-    setLogOpen(false)
-    setWork([])
-    setPicked('sprout')
-    setLanded(false)
-    setText(DEMO.prefill)
-    setPhase('a')
   }
 
   const today = dayKey
@@ -135,9 +128,6 @@ export function Demo() {
             <button className="btn-op" onClick={() => setLogOpen(true)}>{DEMO.log}</button>
           </div>
           <div className="spacer" />
-          <div className="page-foot">
-            <button className="btn-quiet" onClick={reset}>{DEMO.startOver}</button>
-          </div>
         </>
       ) : phase === 'b' ? (
         <>
